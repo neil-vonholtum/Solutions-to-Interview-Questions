@@ -17,27 +17,37 @@ public class DiamondGenerator {
 		else{
 			
 			int half = size/2;
-			char[][] dirows = new char[half+1][size];
-			char[] prev = new char[size];
+			StringBuilder row = new StringBuilder(), bottom = new StringBuilder(), top = new StringBuilder();
 			
-			for(int i = 0; i < size; i++){
+			for(int i = 0; i < half; i++){
 				
-				prev[i] = ' ';
+				row.append(' ');
 			}
 			
-			//create and print lower half of diamond including the horizontal center
-			for(int yandlowerx = half, upperx = half; yandlowerx >= 0; yandlowerx--, upperx++){
+			row.append('*');
+			
+			for(int i = half; i < size; i++){
 				
-				dirows[yandlowerx] = prev.clone();
-				dirows[yandlowerx][upperx] = dirows[yandlowerx][yandlowerx] = '*';
-				System.out.println(prev = dirows[yandlowerx]);
+				row.append(' ');
 			}
 			
-			//print previously created half of diamond in reverse excluding the horizontal center
-			for(int y = 1; y <= half; y++){
-				
-				System.out.println(dirows[y]);
+			row.append(System.lineSeparator());
+			String flrow = row.toString();
+			bottom.insert(0, flrow);
+			top.append(flrow);
+			
+			for(int lesserx = half-1, greaterx = half+1; lesserx > 0; lesserx--, greaterx++){
+			
+				row.setCharAt(lesserx,  '*');
+				row.setCharAt(greaterx, '*');
+				String next = row.toString();
+				bottom.insert(0, next);
+				top.append(next);
 			}
+			
+			row.setCharAt(0, '*');
+			row.setCharAt(size-1, '*');
+			System.out.println(top.append(row.toString()).append(bottom).toString());
 		}
 	}
 }
